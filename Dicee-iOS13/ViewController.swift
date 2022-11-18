@@ -46,6 +46,8 @@ class ViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.layoutSubviews()
@@ -58,7 +60,7 @@ class ViewController: UIViewController {
         view.addSubview(self.cubeTwo)
         view.addSubview(self.rollButton)
         
-        //MARK: - Constraints
+//MARK: - Constraints
         
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -101,7 +103,8 @@ class ViewController: UIViewController {
         ])
     }
 
-        //MARK: - Function
+//MARK: - Function
+    
     @objc func buttonAction(sender: UIButton!) {
         self.cubeOne.image = getRandomImage()
         self.cubeTwo.image = getRandomImage()
