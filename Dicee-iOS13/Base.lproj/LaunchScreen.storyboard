@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -16,16 +16,75 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreenBackground" translatesAutoresizingMaskIntoConstraints="NO" id="cai-Ah-J69">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cai-Ah-J69" secondAttribute="height" multiplier="207:448" id="iKh-AO-HdT"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="DiceeLogo" translatesAutoresizingMaskIntoConstraints="NO" id="8pc-4C-ZSb">
+                                <rect key="frame" x="109" y="63" width="196" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8pc-4C-ZSb" secondAttribute="height" multiplier="49:32" id="Xw4-61-sbH"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="DiceFive" translatesAutoresizingMaskIntoConstraints="NO" id="Wgt-WI-qB4">
+                                <rect key="frame" x="70" y="362" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Wgt-WI-qB4" secondAttribute="height" multiplier="1:1" id="0Fq-FC-uow"/>
+                                    <constraint firstAttribute="width" constant="120" id="KW8-HI-gfg"/>
+                                    <constraint firstAttribute="height" constant="120" id="pww-SH-Hh4"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8na-79-0kH">
+                                <rect key="frame" x="130" y="620" width="154" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="0jE-tl-6UT"/>
+                                    <constraint firstAttribute="width" secondItem="8na-79-0kH" secondAttribute="height" multiplier="154:53" id="YYA-J9-e6T"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="DiceFive" translatesAutoresizingMaskIntoConstraints="NO" id="fC7-9H-gaJ" userLabel="DiceFour">
+                                <rect key="frame" x="241" y="362" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="6cr-QB-T9l"/>
+                                    <constraint firstAttribute="height" constant="120" id="9Ya-XX-Qvk"/>
+                                    <constraint firstAttribute="width" secondItem="fC7-9H-gaJ" secondAttribute="height" multiplier="1:1" id="cfj-y0-1qJ"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cai-Ah-J69" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="09v-tG-C9r"/>
+                            <constraint firstItem="Wgt-WI-qB4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="6Mt-1n-0Zg"/>
+                            <constraint firstItem="8pc-4C-ZSb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="109" id="934-gE-WBL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8pc-4C-ZSb" secondAttribute="trailing" constant="109" id="BnG-A4-bez"/>
+                            <constraint firstItem="8na-79-0kH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="130" id="Gnj-mI-rx8"/>
+                            <constraint firstItem="8na-79-0kH" firstAttribute="centerX" secondItem="8pc-4C-ZSb" secondAttribute="centerX" id="HcH-rS-JJT"/>
+                            <constraint firstItem="8pc-4C-ZSb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="K0d-DQ-h5T"/>
+                            <constraint firstItem="8pc-4C-ZSb" firstAttribute="centerX" secondItem="cai-Ah-J69" secondAttribute="centerX" id="K7Z-BC-iIh"/>
+                            <constraint firstItem="cai-Ah-J69" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VBM-ao-s1x"/>
+                            <constraint firstItem="Wgt-WI-qB4" firstAttribute="top" secondItem="fC7-9H-gaJ" secondAttribute="top" id="XzL-Gu-DQW"/>
+                            <constraint firstItem="fC7-9H-gaJ" firstAttribute="leading" secondItem="Wgt-WI-qB4" secondAttribute="trailing" constant="51" id="YLM-3F-3bo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8na-79-0kH" secondAttribute="bottom" constant="189" id="iRr-xn-Xhx"/>
+                            <constraint firstAttribute="bottom" secondItem="cai-Ah-J69" secondAttribute="bottom" id="mRl-k8-x9D"/>
+                            <constraint firstItem="Wgt-WI-qB4" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="362" id="mWZ-R9-pxo"/>
+                            <constraint firstItem="cai-Ah-J69" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="mja-IN-ltg"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+            <point key="canvasLocation" x="24.637681159420293" y="35.491071428571423"/>
         </scene>
     </scenes>
     <resources>
+        <image name="DiceFive" width="100" height="100"/>
+        <image name="DiceeLogo" width="196" height="128"/>
+        <image name="GreenBackground" width="444.5" height="414"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

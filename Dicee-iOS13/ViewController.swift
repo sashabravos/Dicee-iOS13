@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     let allCubesImageNames = ["DiceOne", "DiceTwo", "DiceThree", "DiceFour", "DiceFive", "DiceSix"]
     
     private lazy var backgroundImage: UIImageView = {
-        let backgroundImage = UIImageView.init(image: UIImage(named: "GreenBackground")!)
+        let backgroundImage = UIImageView.init(image: UIImage(named: "GreenBackground") ?? UIImage())
         backgroundImage.contentMode = .scaleToFill
         return backgroundImage
     }()
@@ -39,9 +39,9 @@ class ViewController: UIViewController {
         button.setTitle("Roll", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "buttonColor")
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = Constants.rollButtonCornerRadius
         button.layer.masksToBounds = true
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: Constants.titleLabelFontSize)
         button.addTarget(self, action: #selector(self.buttonAction(sender:)), for: .touchUpInside)
         return button
     }()
@@ -54,52 +54,37 @@ class ViewController: UIViewController {
     }
     
     private func layoutSubviews() {
-        view.addSubview(self.backgroundImage)
-        view.addSubview(self.logo)
-        view.addSubview(self.cubeOne)
-        view.addSubview(self.cubeTwo)
-        view.addSubview(self.rollButton)
+        let subviews = [self.backgroundImage, self.logo, self.cubeOne, self.cubeTwo, self.rollButton]
+        subviews.forEach { view.addSubview($0) }
         
 //MARK: - Constraints
         
-        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+        let translatesAutoresizingMaskIntoConstraints = [self.backgroundImage, self.logo, self.cubeOne, self.cubeTwo, self.rollButton]
+        translatesAutoresizingMaskIntoConstraints.forEach { ($0).translatesAutoresizingMaskIntoConstraints = false }
+        
         NSLayoutConstraint.activate([
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor)
-        ])
-        
-        logo.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            logo.centerXAnchor.constraint(equalTo: backgroundImage.centerXAnchor),
-            logo.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 100)
-        ])
-        
-        cubeOne.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            cubeOne.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: backgroundImage.frame.midX / 3),
-            cubeOne.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: backgroundImage.frame.size.height),
-            cubeOne.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -363),
-            cubeOne.rightAnchor.constraint(equalTo: backgroundImage.rightAnchor, constant: -223),
-        ])
-        
-        cubeTwo.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-        cubeTwo.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: backgroundImage.frame.midX),
-        cubeTwo.topAnchor.constraint(equalTo: cubeOne.topAnchor),
-        cubeTwo.bottomAnchor.constraint(equalTo: cubeOne.bottomAnchor),
-        cubeTwo.heightAnchor.constraint(equalTo: cubeOne.heightAnchor),
-        cubeTwo.widthAnchor.constraint(equalTo: cubeOne.widthAnchor)
-    ])
-        
-    
-        rollButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            rollButton.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 120),
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            logo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logo.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.topAnchor, multiplier: 7),
+
+            cubeOne.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            cubeOne.topAnchor.constraint(lessThanOrEqualTo: logo.bottomAnchor, constant: 120),
+            cubeOne.widthAnchor.constraint(equalToConstant: 120),
+            cubeOne.heightAnchor.constraint(equalTo: cubeOne.widthAnchor),
+
+            cubeTwo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 60),
+            cubeTwo.topAnchor.constraint(equalTo: cubeOne.topAnchor),
+            cubeTwo.heightAnchor.constraint(equalTo: cubeOne.heightAnchor),
+            cubeTwo.widthAnchor.constraint(equalTo: cubeOne.widthAnchor),
+
+            rollButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 120),
             rollButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -170),
-            rollButton.centerXAnchor.constraint(equalTo: backgroundImage.centerXAnchor),
-            rollButton.centerYAnchor.constraint(equalTo: backgroundImage.centerYAnchor, constant: 250)
+            rollButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            rollButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 250)
         ])
     }
 
@@ -112,5 +97,10 @@ class ViewController: UIViewController {
     
     private func getRandomImage() -> UIImage? {
         UIImage(named: self.allCubesImageNames.randomElement() ?? "")
+    }
+    
+    private enum Constants {
+        static let rollButtonCornerRadius: CGFloat = 15
+        static let titleLabelFontSize: CGFloat = 30
     }
 }
