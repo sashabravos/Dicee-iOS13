@@ -18,10 +18,29 @@ class ViewController: UIViewController {
         return backgroundImage
     }()
     
+    private lazy var topView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private lazy var logo: UIImageView = {
         let logo = UIImageView.init(image: UIImage(named: "DiceeLogo")!)
         logo.contentMode = .scaleAspectFit
         return logo
+    }()
+    
+    private lazy var middleView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    private lazy var stackViewForCubes: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis  = NSLayoutConstraint.Axis.horizontal
+        stackView.distribution  = UIStackView.Distribution.fill
+        stackView.alignment = UIStackView.Alignment.fill
+        stackView.spacing = Constants.spaceBetweenCubes
+        return stackView
     }()
     
     private lazy var cubeOne: UIImageView = {
@@ -32,6 +51,11 @@ class ViewController: UIViewController {
     private lazy var cubeTwo: UIImageView = {
         let cubeTwo = UIImageView.init(image: getRandomImage())
         return cubeTwo
+    }()
+    
+    private lazy var bottomView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private lazy var rollButton: UIButton = {
@@ -46,6 +70,15 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis  = NSLayoutConstraint.Axis.vertical
+        stackView.distribution  = UIStackView.Distribution.fillEqually
+        stackView.alignment = UIStackView.Alignment.fill
+        stackView.spacing   = 4.0
+        return stackView
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -54,12 +87,27 @@ class ViewController: UIViewController {
     }
     
     private func layoutSubviews() {
-        let subviews = [self.backgroundImage, self.logo, self.cubeOne, self.cubeTwo, self.rollButton]
-        subviews.forEach { view.addSubview($0) }
         
+        topView.addSubview(self.logo)
+        
+        let viewsOfMiddleView = [self.cubeOne, self.cubeTwo]
+        viewsOfMiddleView.forEach { stackViewForCubes.addArrangedSubview($0) }
+        
+        middleView.addSubview(stackViewForCubes)
+        
+        bottomView.addSubview(self.rollButton)
+        
+        let viewsOfStackView = [self.topView, self.middleView, self.bottomView]
+        viewsOfStackView.forEach { stackView.addArrangedSubview($0) }
+        
+        let subviews = [self.backgroundImage,
+                        self.stackView]
+        subviews.forEach { view.addSubview($0) }
+    
 //MARK: - Constraints
         
-        let translatesAutoresizingMaskIntoConstraints = [self.backgroundImage, self.logo, self.cubeOne, self.cubeTwo, self.rollButton]
+//        let translatesAutoresizingMaskIntoConstraints = [self.backgroundImage, self.logo, self.cubeOne, self.cubeTwo, self.rollButton, self.topView, self.middleView, self.stackViewForCubes, self.bottomView, self.stackView]
+        let translatesAutoresizingMaskIntoConstraints = [self.backgroundImage, self.logo, self.rollButton, self.stackViewForCubes, self.stackView]
         translatesAutoresizingMaskIntoConstraints.forEach { ($0).translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([
@@ -68,26 +116,24 @@ class ViewController: UIViewController {
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
             
-            logo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logo.topAnchor.constraint(lessThanOrEqualToSystemSpacingBelow: view.topAnchor, multiplier: 7),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 
-            cubeOne.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
-            cubeOne.topAnchor.constraint(lessThanOrEqualTo: logo.bottomAnchor, constant: 120),
-            cubeOne.widthAnchor.constraint(equalToConstant: 120),
-            cubeOne.heightAnchor.constraint(equalTo: cubeOne.widthAnchor),
+            logo.centerXAnchor.constraint(equalTo: topView.centerXAnchor),
+            logo.centerYAnchor.constraint(equalTo: topView.centerYAnchor),
 
-            cubeTwo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 60),
-            cubeTwo.topAnchor.constraint(equalTo: cubeOne.topAnchor),
-            cubeTwo.heightAnchor.constraint(equalTo: cubeOne.heightAnchor),
-            cubeTwo.widthAnchor.constraint(equalTo: cubeOne.widthAnchor),
+            stackViewForCubes.centerXAnchor.constraint(equalTo: middleView.centerXAnchor),
+            stackViewForCubes.centerYAnchor.constraint(equalTo: middleView.centerYAnchor),
 
-            rollButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 120),
-            rollButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -170),
-            rollButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            rollButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 250)
+            rollButton.widthAnchor.constraint(greaterThanOrEqualTo: rollButton.widthAnchor, constant: Constants.rollButtonWidth),
+            rollButton.heightAnchor.constraint(equalTo: rollButton.heightAnchor, constant: Constants.rollButtonHeight),
+            rollButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor),
+            rollButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor)
         ])
     }
-
+    
 //MARK: - Function
     
     @objc func buttonAction(sender: UIButton!) {
@@ -102,5 +148,8 @@ class ViewController: UIViewController {
     private enum Constants {
         static let rollButtonCornerRadius: CGFloat = 15
         static let titleLabelFontSize: CGFloat = 30
+        static let rollButtonWidth: CGFloat = 100
+        static let rollButtonHeight: CGFloat = 50
+        static let spaceBetweenCubes: CGFloat = 51
     }
 }
