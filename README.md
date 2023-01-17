@@ -1,2 +1,2 @@
-# Dicee-iOS13
-Angela_Yu_iOS-&amp;-Swift_app-development-bootcamp
+# Dicee-iOS13 programmatically
+Course by Angela Yu iOS Swift app-development bootcamp
